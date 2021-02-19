@@ -1,0 +1,48 @@
+CREATE TABLE users(
+	usersid int(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+        firstName varCHAR(255) NOT NULL,
+        lastName varCHAR(255) NOT NULL,
+        username varCHAR(255) NOT NULL,
+        email varCHAR(255) NOT NULL,
+        password varCHAR(255) NOT NULL,
+        dateOfBirth varCHAR NOT NULL,
+        location varCHAR(255) NOT NULL,
+        gender varCHAR(255) NOT NULL,
+        contact varCHAR(255),
+        profilePic varCHAR,
+        userCreatedAt DATETIME default current_timestamp,
+        profilePicStatus int(11)
+); 
+
+CREATE TABLE admin(
+	adminid int(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+        firstName varCHAR(255) NOT NULL,
+        lastName varCHAR(255) NOT NULL,
+        username varCHAR(255) NOT NULL,
+        email varCHAR(255) NOT NULL,
+        password varCHAR(255) NOT NULL,
+        location varCHAR(255) NOT NULL,
+        contact varCHAR(255),
+        profilePic varCHAR,
+        profilePicStatus int(11)
+);
+
+CREATE TABLE products(
+	productid int(11) AUTO_INCREMENT NOT NULL PRIMARY KEY,
+        productName varCHAR(255) NOT NULL,
+        productPrice varCHAR(255) NOT NULL,
+        stock int(11) NOT NULL,
+        pProduceDate varCHAR,
+        pExpiryDate varCHAR,
+        productPic varCHAR,
+        pdayAdded timestamp default current_timestamp not null,
+        pPicStatus int(11)      
+);
+
+ALTER TABLE `products` DROP `productName`;
+
+ALTER TABLE products MODIFY pdayAdded timestamp default current_timestamp not null;
+
+ALTER TABLE users MODIFY userCreatedAt timestamp default current_timestamp not null;   
+
+ALTER TABLE products MODIFY productPrice int(11) not null; 

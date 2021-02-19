@@ -1,0 +1,466 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body{
+    background: none;
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+}
+
+header{
+    width: 100%;
+    height: 80px;
+    align-content: center;
+    background-color: #ebebeb;
+    opacity: 0.7;
+    overflow: hidden;
+}
+
+nav{
+    margin: auto;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 15px;
+}
+
+a{
+    color: black;
+    line-height: 1px;
+    display: block;
+}
+
+.login-below{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.login-below label{
+    padding-left: 20px;
+}
+
+.login-below label{
+    margin-top: 4px;
+}
+
+.fpass{
+    padding-top: 15px;
+    padding-left: 0px;
+}
+
+span{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e00303;
+}
+
+/* form{
+    position: relative;
+} */
+
+nav input{
+    background: none;
+    border-radius: 10px;
+}
+
+nav input[type=checkbox]{
+    margin-top: 8px;
+}
+
+
+nav input[type=text]{
+    padding-left: 20px;
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+    color: black;
+    outline: none;
+    border: 1px solid black;
+}
+
+nav input[type=password]{
+    padding-left: 20px;
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+    color: black;
+    outline: none;
+    border: 1px solid black;
+}
+
+nav input[name=search]{
+    width: 300px;
+    border: 1px solid black;
+}
+
+nav .btn{
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+    color: black;
+    width: 70px;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+nav .btn:hover{
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.8);
+    outline: none;
+}
+
+.no-border{
+    border: none;
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+    color: black;
+    width: 70px;
+    text-transform: uppercase;
+    background: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.change_btn button{
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+
+/* main */
+.image{
+    background-image: url(./assets/a.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 95vh;
+}
+
+.signup_form{
+    width: 40%;
+    height: 100vh;
+    float:right;
+    background-color: rgba(255, 255, 255, 0.8)
+}
+
+.txt-signup{
+    font: 1em monospace;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.signup_content{
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.signup_content input{
+    width: 70%;
+    margin: 11px 0;
+    border: none;
+    border-bottom: 1px solid black;
+    background: none;
+    outline: none;
+    text-transform: capitalize;
+}
+
+
+/* .signup_content label{
+    display: block;
+    align-self: start;
+} */
+
+.signup_content input[type=text]{
+    padding-bottom: 10px;
+    line-height: 2px;
+    font-size: 0.8rem;
+    color: black;
+}
+
+.signup_content input[type=email]{
+    padding-bottom: 10px;
+    line-height: 2px;
+    font-size: 0.8rem;
+    color: black;
+}
+
+.signup_content input[type=password]{
+    padding-bottom: 10px;
+    line-height: 2px;
+    font-size: 0.8rem;
+    color: black;
+}
+
+.signup_content input[type=date]{
+    padding-bottom: 1px;
+    font-size: 0.8rem;
+    color: black;
+    height: 30px;
+    margin-bottom: 20px;
+    text-transform: lowercase;
+}
+
+.content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+}
+
+select{
+    margin:20px 0;
+    outline: none;
+    border: none;
+    background: none;
+    line-height: 2px;
+    font-size: 0.8rem;
+    color: black;
+    text-transform: uppercase;
+}
+label{
+    text-transform: uppercase;
+    line-height: 1.5rem;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.signup_content button{
+    background: transparent;
+    width: 70%;
+    line-height: 1.5rem;
+    font-size: 1.2rem;
+    color: black;
+    text-transform: uppercase;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 45px;
+}
+
+.signup_content button:hover{
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+/* Main Admin */
+
+main .container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.user-profile{
+    width: 20%;
+    height: 140vh;
+    background-color: #ebebeb;
+    position: sticky;
+    display: flex;
+    justify-content: center;
+}
+.user-profile .profile-items{
+    margin-top: 25px;
+    width: 80%;
+}
+
+.profileIMG{
+    width: 100%;
+    height: 210px;
+    background-color: #fff;
+}
+
+.user-profile .add-profile{
+    width: 100%;
+    height: 30px;
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+.user-profile .user-info {
+    width: 100%;
+    font: 1.4em monospace;
+    line-height: 1.5;
+    font-weight: bold;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+/* .user-profile .user-info .email{
+    font-weight: 1em;
+} */
+
+.user-profile button[type=submit]{
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.display-products-user{
+    width: 80%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.display-products-user .section-text{
+    font: 1.9em monospace;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+.display-products{
+    width: 55%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.product-box{
+    width: 30%;
+    height: 300px;
+    background-color: aqua;
+}
+
+.product-box .product-img{
+    width: 100%;
+    height: 200px;
+    background-color: #e00303;
+}
+
+.products-form{
+    width: 25%;
+    height: 140vh;
+    background-color: #ebebeb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+}
+
+.products-form h3{
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    font-weight: 1.5rem;
+    line-height: 1.5rem;
+    margin-top: 30px;
+}
+
+.products-form form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.products-form form input[type=text]{
+    line-height: 1.3em;
+    font-size: 0.9rem;
+    border: none;
+    background: none;
+    border-bottom: 1px solid rgb(46, 38, 38);
+    margin-top: 30px;
+    width: 90%;
+    outline: none;
+}
+
+.products-form form input[type=email]{
+    line-height: 1.3em;
+    font-size: 0.9rem;
+    border: none;
+    background: none;
+    border-bottom: 1px solid rgb(46, 38, 38);
+    margin-top: 30px;
+    width: 90%;
+    outline: none;
+}
+
+.products-form form input[type=password]{
+    line-height: 1.3em;
+    font-size: 0.9rem;
+    border: none;
+    background: none;
+    border-bottom: 1px solid rgb(46, 38, 38);
+    margin-top: 30px;
+    width: 90%;
+    outline: none;
+}
+
+.products-form form input[type=number]{
+    /* padding-left: 20px; */
+    line-height: 1.3em;
+    font-size: 0.9rem;
+    border: none;
+    background: none;
+    border-bottom: 1px solid rgb(46, 38, 38);
+    margin-top: 30px;
+    width: 90%;
+    outline: none;
+}
+
+.products-form form .stock{
+    margin-bottom: 20px;
+}
+
+.products-form form input[type=date]{
+    border: none;
+    background: none;
+    border-bottom: 1px solid rgb(46, 38, 38);
+    margin: 10px 0;
+    width: 90%;
+}
+
+.products-form form label{
+    padding-top: 30;
+}
+
+.products-form form button{
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+    color: black;
+    width: 100%;
+    text-transform: uppercase;
+    background-color: cadetblue;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 35px;
+    margin-top: 30px;
+}
+
+.pwdr{
+    margin-bottom: 20px;
+}
+
+/* Footer */
+
+footer{
+    width: 100%;
+    height: 90px;
+    background-color: black;
+    opacity: .8;
+}
+
+footer .container{
+    width: 80%;
+    
+}
+
+footer p{
+    color: #ebebeb;
+    margin-left: 70px;
+    padding-top: 15px;
+    cursor: pointer;
+}
