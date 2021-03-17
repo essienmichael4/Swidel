@@ -1,7 +1,7 @@
 <?php
     //Check for empty Field
     function emptyField($data){
-        $result;
+        $result = true;
         if(empty($data)){
             return $result = true;
         } else{
@@ -11,7 +11,7 @@
 
     //Check for empty fields
     function emptyFields($fname,$lname,$username,$email,$pwd,$pwdCheck,$gender,$location,$dob){
-        $result;
+        $result = true;
         if(empty($fname)||empty($lname)||empty($username)||empty($email)||empty($pwd)||empty($pwdCheck)||empty($gender)||empty($location)||empty($dob)){
             return $result = true;
         } else{
@@ -21,7 +21,7 @@
 
     //Check for invalid username
     function invalidUsername($username){
-        $result;
+        $result = true;
         if(!preg_match('/^[a-zA-Z0-9]*$/', $username )){
             return $result = true;
         } else{
@@ -31,7 +31,7 @@
 
     //Check for invalid email
     function invalidEmail($email){
-        $result;
+        $result = true;
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
             return $result = true;
         } else{
@@ -41,7 +41,7 @@
 
     //Password Check
     function invalidPassword($pwd, $pwdCheck){
-        $result;
+        $result=true;
         if($pwd !== $pwdCheck){
             return $result = true;
         } else{
@@ -325,22 +325,23 @@
         $result = $conn->query($sql);
         
         while ($products = $result->fetch_assoc()) {
-            echo '<div class="product-box">';
-            echo '<div class="products-img">';
-                if($products['pPicStatus'] != 1){
-                    echo '<img src="./productProfile/general.png" class="product-img">';
-                }else {
-                    echo '<img src="./productProfile/'.$products['productPic'].'" class="product-img">';
-                }
-                echo'<div class="edit">
-                    <form action="./includes/utilities.inc.php" method="POST" enctype="multipart/form-data">
-                        <input name="pid" value="'.$products['productid'].'" hidden>
-                        <input id="product-pic-change" type="file" name="ppic" hidden>
-                        <button class="edit-btn">edit image</button>
-                        <button type="submit" class="edit-btn-save" name="edit-product-pic">save image</button>
-                    </form>
+            echo '<div class="product-box">
+                <div class="products-img">';
+                    if($products['pPicStatus'] != 1){
+                        echo '<img src="./productProfile/general.png" class="product-img">';
+                    }else {
+                        echo '<img src="./productProfile/'.$products['productPic'].'" class="product-img">';
+                    }
+                    echo'<div class="edit">
+                        <form action="./includes/utilities.inc.php" method="POST" enctype="multipart/form-data">
+                            <input name="pid" value="'.$products['productid'].'" hidden>
+                            <input id="product-pic-change" type="file" name="ppic" hidden>
+                            <button class="edit-btn">edit image</button>
+                            <button type="submit" class="edit-btn-save" name="edit-product-pic">save image</button>
+                        </form>
+                    </div>
                 </div>';
-            echo '</div>';
+
                 echo '<div class="products-info">';
                 echo '<p>'.$products['productName'].'</p>';
                 echo '<p> Price: GH¢'.$products['productPrice'].'</p>';
@@ -360,6 +361,15 @@
                     </form>';
             echo '<div>'; 
         }
+    }
+ 
+    //Load Products Admin
+    function getProductForAdmin($conn){
+        $sql = 'SELECT * FROM products;';
+
+        $result = $conn->query($sql);
+        
+        return $result->fetch_assoc();
     }
 
     //Check if product is taken

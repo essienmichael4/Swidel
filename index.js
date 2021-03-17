@@ -1,13 +1,56 @@
-let fileBtn = document.querySelector(".edit-btn");
-let filePic = document.querySelector("#product-pic-change");
-let fileSave = document.querySelector(".edit-btn-save");
+let toggleStatus = false;
+let overlay = document.querySelector(".bringCart");
+// let theParent = document.querySelector("#parent");
 
-fileBtn.addEventListener("click",(e)=>{
-    e.preventDefault();
-    filePic.click();
+// theParent.addEventListener("click", (e)=>{
+//     e.target.preventDefault();
 
-    fileBtn.style.visibility = "hidden";
-    fileBtn.style.display = "none";
-    fileSave.style.visibility = "visible";
-    fileSave.style.display = "block";
-})
+//     if(e.target !== e.currentTarget){
+        
+//         let id = e.target.id; 
+
+//         alert(id);
+
+//         // let idValue = document.querySelector(".idvalue").value();
+//         let filePic = document.querySelector(`#product-pic-change${id}`);
+//         let fileSave = document.querySelector(`#save${id}`);
+            
+            
+//         filePic.click();
+        
+//         id.style.visibility = "hidden";
+//         id.style.display = "none";
+//         fileSave.style.visibility = "visible";
+//         fileSave.style.display = "block";
+//     }
+//     e.stopPropagation();
+// });
+
+let changePic = e =>{
+    let id = e.target.id; 
+    e.target.preventDefault();
+
+    alert(id);
+
+}
+    
+
+
+
+function bringCart(){
+    let cartOverlay = document.querySelector(".addedCartOverlay");
+    let cartDisplay = document.querySelector(".cartDisplay");
+
+    if(toggleStatus === false){
+        cartOverlay.style.visibility = "visible";
+        cartDisplay.style.transform = "translateX(0)";
+        cartOverlay.style.transform = "translateX(0)";
+
+        toggleStatus= true;
+    }else{
+        cartOverlay.style.visibility = "hidden";
+        cartDisplay.style.transform = "translateX(100%)";
+        // cartOverlay.style.transform = "translateX(100%)";
+        toggleStatus= false;
+    }
+}

@@ -16,29 +16,42 @@ header{
     height: 80px;
     align-content: center;
     background-color: #fff;
-    opacity: 0.7;
     overflow: hidden;
+    z-index: 1;
+}
+
+.header-justify{
+    display: flex;
+    justify-content: space-between;
 }
 
 nav{
-    margin: auto;
     width: 90%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding-top: 15px;
 }
 
-a{
+nav a{
+    margin-left: 45px;
     color: black;
     line-height: 1px;
-    display: inline-block;
+    /* display: inline-block; */
 }
 
 header nav a img{
-    height: 45px;
-    width: 55px;
+    height: 65px;
+    width: 85px;
+}
+
+.bringCart{
+    width: 80px;
+    height: 100%;
+    background-color: rgb(255, 165, 0);
+    z-index: 1;
+    cursor: pointer;
 }
 
 .login-below{
@@ -132,6 +145,10 @@ nav .btn:hover{
     cursor: pointer;
 }
 
+.login-form{
+    margin-top: 15px;
+}
+
 .change_btn button{
     border: none;
     background: none;
@@ -141,7 +158,19 @@ nav .btn:hover{
 
 
 
+
+
 /* main */
+
+main .container{
+    width: 100%;
+    display: flex;
+    /* grid-template-columns: repeat(autofit, minmax(200px, 1fr));
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 2rem;   */
+    /* flex-direction: row; */
+}
+
 .image{
     background-image: url(./assets/a.jpeg);
     background-size: cover;
@@ -262,21 +291,14 @@ label{
 
 /* Main Admin */
 
-main .container{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    
-}
-
 .user-profile{
     width: 20%;
     height: 140vh;
     background-color: #ebebeb;
-    position: sticky;
     display: flex;
     justify-content: center;
 }
+
 .user-profile .profile-items{
     margin-top: 25px;
     width: 80%;
@@ -297,9 +319,9 @@ main .container{
 
 .user-profile .user-info {
     width: 100%;
-    font: 1.4em monospace;
+    font: 1.2em monospace;
     line-height: 1.5;
-    font-weight: bold;
+    /* font-weight: bold; */
     word-wrap: break-word;
     overflow: hidden;
 }
@@ -320,7 +342,6 @@ main .container{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
 }
 
 .display-products-user .section-text{
@@ -331,23 +352,43 @@ main .container{
 
 .display-products{
     width: 55%;
-    /* min-height: 100vh; */
+    min-height: 100vh;
     display: flex;
-    /* justify-content: space-around; */
+    flex-direction: column;
 }
 
 .inventory-products{
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    /* height: auto;
-    display: grid;
-    grid-template-columns: repeat(autofit, minmax(200px, 1fr));
-    grid-column-gap: 1.5rem;
-    grid-row-gap: 2rem;    */
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 20px 0;
 }
 
+.product-box{
+    position: relative;
+    width: 200px;
+    height: 312px;
+    background-color: #ebebeb;
+}
+
+.product-box .products-img{
+    width: 100%;
+    height: 200px;
+    background-color: inherit;   
+}
+
+.relative-box{
+    position: relative;
+}
+
+.product-box .stock-text{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: rgb(248, 224, 3);
+}
 
 .titles{
     width: 100%;
@@ -360,19 +401,6 @@ main .container{
     font: 1.9em monospace;
     line-height: 1.5;
     font-weight: bold;
-}
-
-.product-box{
-    width: 200px;
-    height: 300px;
-    background-color: aqua;
-}
-
-.product-box .products-img{
-    width: 100%;
-    height: 200px;
-    background-color:aqua;
-    position: relative;
 }
 
 .product-box .products-img .edit{
@@ -405,6 +433,48 @@ main .container{
 
 .product-box .products-img .edit .edit-btn-save:hover{
     opacity: 1;
+}
+
+/* .block{
+    display: block;
+} */
+
+.products-info-dates{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+}
+
+.products-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+}
+
+.addCart{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background: inherit;
+    height: 40px;
+    align-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.addCart:hover{
+    background-color: darkgoldenrod;
+    opacity: 1;
+}
+
+.cart-img{
+    height: 20px;
+    width: 20px;
 }
 
 .product-box .product-img{
@@ -515,6 +585,58 @@ main .container{
 
 .pwdr{
     margin-bottom: 20px;
+}
+
+.addedCartOverlay{
+    position: fixed;
+    z-index: 2;
+    background: rgba(255, 165, 0, 0.5);
+    /* opacity: .3; */
+    top: 80px;
+    right: 0px;
+    height: 100%;
+    width: 100%;
+    visibility: hidden;
+    transition: all .3s linear;
+    transform: translateX(100%);
+}
+
+.cartDisplay{
+    position: fixed;
+    background: #ebebeb;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 30%;
+    opacity: 1;
+    min-width: 350px;
+    z-index: 3;
+    padding: 1.5rem;
+    overflow: scroll;
+    /* visibility: hidden; */
+    transition: all .3s linear;
+    transform: translateX(100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cartProduct{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin: 10px;
+}
+
+.cartProduct .cartPImg{
+    width: 70px;
+    height: 70px;
+}
+
+.cartProduct .cartPImg img{
+    height: 100%;
+    width: 100%;
 }
 
 /* Footer */

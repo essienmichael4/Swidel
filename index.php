@@ -13,14 +13,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <title>PEsstall</title>
+    <title>SwiDel</title>
 </head>
 <body>
 <?php
     include("./src/header.php");
     include("./src/main.php");
-    include("./src/footer.php");
+    // include("./src/footer.php");
 ?>
 </body>
+<script>
+    let changePic = e =>{
+        let id = e.target.id; 
+        e.target.preventDefault();
+
+        alert(id);
+
+    }
+</script>
 <script src="./index.js"></script>
 </html>

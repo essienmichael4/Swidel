@@ -2,9 +2,10 @@
     session_start();
 ?> -->
 
-<header>
+<header <?php if(isset($_SESSION['userid'])) echo 'class="header-justify"' ?>>
     <nav>
-    <a href="index.php"><img src="./assets/logo.png" alt="logo"><h2><span>Swi</span>Del</h2></a>
+    <a href="index.php"><img src="./assets/logo.png" alt="logo"></a>
+    <!-- <h2><span>Swi</span>Del</h2> -->
         
         <?php
             if(isset($_SESSION['userid'])){
@@ -17,7 +18,11 @@
                 echo '
                 <form action="./includes/logout.inc.php" method="post"">
                     <button type="submit" class="btn" name="logout">logout</button>
-                </form> ';
+                </form> 
+                </nav>
+                <div class="bringCart" onclick="bringCart()">
+                    
+                </div>';
             }elseif(isset($_SESSION['adminid'])){
                 echo '<form method="post">
                     <input type="text" class="search" placeholder="Search" name="search">
@@ -39,10 +44,11 @@
                 echo '
                 <form action="./includes/logout.inc.php"  method="post">
                     <button type="submit" class="btn" name="logout">logout</button>
-                </form> ';
+                </form> 
+                </nav>';
             } else {
                 echo '
-                <form action="./includes/login.inc.php" method="post">
+                <form class="loginForm" action="./includes/login.inc.php" method="post">
                     <input type="text" placeholder="username/email" name="userName" required>
                     <input type="password" placeholder="password" name="pwd" required>
                     <button type="submit" class="btn" name="login">login</button>
@@ -50,8 +56,9 @@
                     <label> Admin</label><input type="checkbox" name="admin">
                     <a href="#" class="fpass">forgotten password</a> 
                     </div>
-                </form> ';
+                </form> 
+                </nav>';
             }
         ?>      
-    </nav>
+    
 </header>
