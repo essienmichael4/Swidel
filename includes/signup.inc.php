@@ -15,7 +15,7 @@
         
 
         if (emptyFields($fname,$lname,$username,$email,$pwd,$pwdCheck,$gender,$location,$dob) !== false){
-            header('Location: ../index.php?error=emptyFields');
+            header('location: ../index.php?error=emptyFields');
             exit();
         }
 

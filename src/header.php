@@ -11,7 +11,7 @@
             if(isset($_SESSION['userid'])){
                 echo '<form action="">
                     <input type="text" class="search" placeholder="Search" name="search">
-                    <button type="submit" name="searchProductsUsers" class="search btn">Search</button>
+                    <button type="submit" name="searchProductsUsers" value="searchProduct" class="search btn">Search</button>
                 </form>';
 
                 echo '<p>Welcome '.$_SESSION['username'].'</p>';
@@ -24,10 +24,10 @@
                     
                 </div>';
             }elseif(isset($_SESSION['adminid'])){
-                echo '<form method="post">
+                echo '<form action="">
                     <input type="text" class="search" placeholder="Search" name="search">
-                    <button type="submit" name="searchProductsAdmin" class="search btn">Search</button>
-                </form>';
+                    <button type="submit" name="searchProductsAdmin" value="searchProduct" class="search btn">Search</button>
+                    </form>';
 
                 echo '<p>Welcome '.$_SESSION['username'].'</p>
                 <form class="change_btn">';

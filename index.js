@@ -1,5 +1,22 @@
 let toggleStatus = false;
 let overlay = document.querySelector(".bringCart");
+let btnEdit = [ ...document.querySelectorAll(".edit-btn")];
+
+btnEdit.forEach(button=>{
+    button.addEventListener("click", e=>{
+        e.preventDefault();
+
+        let id = e.target.id;
+        alert(id);
+        let filePic = document.querySelector(`#product-pic-change${id}`).id;
+        let fileSave = document.querySelector(`#save${id}`);
+
+        
+
+        // alert(fileSave.id);
+    })
+})
+
 // let theParent = document.querySelector("#parent");
 
 // theParent.addEventListener("click", (e)=>{

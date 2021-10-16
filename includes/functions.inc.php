@@ -183,7 +183,7 @@
             $_SESSION['contact'] = $userExists['contact'];
             $_SESSION['profilePic'] = $userExists['profilePic'];
             $_SESSION['profilePicStatus'] = $userExists['profilePicStatus'];            
-            header("Location: ../index.php?error=loginSuccess");
+            header("Location: ../index.php");
             exit();
         
         }
@@ -224,9 +224,8 @@
             $_SESSION['profilePic'] = $userExists['profilePic'];
             $_SESSION['profilePicStatus'] = $userExists['profilePicStatus'];
             
-            header("Location: ../index.php?success=loginSuccess");
-            exit();
-        
+            header("Location: ../index.php");
+            exit();        
         }
     }
 
@@ -759,3 +758,19 @@
         }        
     }
 
+function orderProducts($conn,$pid, $pName, $pPrice, $stock, $pStock, $uid, $username, $email, $contact, $location, $payment, $delivery){
+        $sql1 = 'INSERT INTO orders(pid, productName, stock, price, cid, name, contact, location, paymentMethod, delivery) VALUES(?,?,?,?,?,?,?,?,?,?);';
+        $stmt = mysqli_stmt_init($conn);
+        if(!mysqli_stmt_prepare($stmt, $sql1)){
+            header("Location: ../index.php?error=stst-error");
+            exit();
+        }
+        mysqli_stmt_bind_param($stmt, "isiiissssss", $pid, $pName, $stock, $pPrice, $uid, $username, $email, $contact, $location, $payment, $delivery);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+
+        $sql2 = 'UPDATE products SET stock = $pStock WHERE productid = $pid;';
+        $conn->query($sql2);
+
+}

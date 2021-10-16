@@ -33,12 +33,138 @@
                         </div>
                     </aside>
                     <section class="display-products-user">
-                        <h1 class="section-text">Items in inventory</h1>
-                            <?php if(isset($_POST['searchProductsUsers'])){
-                                // echo '<div class="inventory-products">';
-                                //     echo searchProductsAdmin($conn, $_POST['search']); 
-                                // echo '</div>';
-                            }else{?>
+                        <form class="util" method="GET">
+                            <button class="section-text" name="items" value="inventory">Items in inventory</button>
+                            <button class="section-text" name="order" value="order">Orders</button>
+                        </form>
+                        
+                            <?php if(isset($_GET['searchProductsUsers']) == "searchProducts"){?>
+                                <div class="inventory-products">
+                                <?php
+                                        $item = $_GET['search'];
+                                        
+                                        $sql = 'SELECT * FROM products WHERE productName = ? OR category = ?;';
+                                        $stmt = mysqli_stmt_init($conn);
+                                        if(!mysqli_stmt_prepare($stmt, $sql)){
+                                            header("Location: ../index.php?error=stmt-error");
+                                            exit();
+                                        }
+
+                                        mysqli_stmt_bind_param($stmt, "ss", $item, $item);
+                                        mysqli_stmt_execute($stmt);
+                                        $result = mysqli_stmt_get_result($stmt);
+                                        
+                                        
+                                            while($row=mysqli_fetch_assoc($result)){
+                                                ?>
+                                                
+                                                <div class="product-box">
+                                                    <div class="relative-box">
+                                                        <p class="stock-text"><?php echo $row['stock'];?></p>
+                                                        <div class="products-img">
+                                                            <?php
+                                                            if($row['pPicStatus'] != 1){?>
+                                                                <img src="./productProfile/general.png" class="product-img"><?php
+                                                            }else {?>
+                                                                <img src="./productProfile/<?php echo $row['productPic']?>" class="product-img">
+                                                            <?php
+                                                            }?>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="products-info">
+                                                            <p><?php echo $row['productName']; ?></p>
+                                                            <p> Price: GH¢ <?php echo $row['productPrice']; ?></p>
+                                                    </div>
+            
+                                                    <div class="products-info-dates"><?php
+                                                                if($row['pProduceDate'] == 'Null'){
+                                                                    echo '<p>'.$row['pProduceDate'].'</p>';
+                                                                }else {
+                                                                    echo '<p class="block"></p>';
+                                                                }
+                                                                if($row['pExpiryDate'] == 'Null'){
+                                                                    echo '<p>'.$row['pExpiryDate'].'</p>';
+                                                                }else {
+                                                                    echo '<p class="block"></p>';
+                                                                }?>
+                                                    </div>
+                                                    <form action="" method="post">
+                                                        <input name="pid" value="<?php echo $row['productid']?>" hidden>
+                                                        <input  name="pName" value="<?php echo $row['productName']?>" hidden>
+                                                        <input  name="pPrice" value="<?php echo $row['productPrice']?>" hidden>
+                                                        <input  name="quantity" value="<?php echo $row['productid']?>" hidden>
+                                                        <input  name="uid" value="<?php echo $row['productid']?>" hidden>
+                                                        <input  name="uuName" value="<?php echo $row['productid']?>" hidden>
+                                                        <input  name="contact" value="<?php echo $row['productid']?>" hidden>
+                                                        <input  name="location" value="<?php echo $row['productid']?>" hidden>
+                                                        
+                                                        <button type="submit" class="" name="buy_product">Buy</button>
+                                                    </form>
+                                                    <form method="GET">
+                                                        <input name="pid" value="<?php echo $products['productid']?>" hidden>
+                                                        <input  name="pName" value="<?php echo $products['productName']?>" hidden>
+                                                        <input  name="pPrice" value="<?php echo $products['productPrice']?>" hidden>
+                                                        <input  name="quantity" value="<?php echo $products['stock']?>" hidden>
+                                            
+                                                        <button class='addCart' name="addToCart">
+                                                            <h3>Add to Cart</h3>
+                                                            <img src="./assets/cart.png" class="cart-img" alt="cart image">
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            <?php
+                                            }
+
+                                        mysqli_stmt_close($stmt);
+                                        ?>
+
+
+                                        
+                                </div>
+                            <?php }elseif(isset($_GET['order']) == "order"){ ?>
+                                <div class="inventory-orders">
+                                    <?php
+                                        $sql = 'SELECT * FROM orders;';
+                                        $result = $conn->query($sql);
+                                        while($products = $result->fetch_assoc()){?>
+                                        
+                                            
+                                                <table>
+                                                    <thead>
+                                                        <tr>Custoner Name</tr>
+                                                        <tr>Contact</tr>
+                                                        <tr>Location</tr>
+                                                        <tr>Product</tr>
+                                                        <tr>Quantity</tr>
+                                                        <tr>Price</tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>Michael Essien</tr>
+                                                    <tr>0263436049</tr>
+                                                    <tr>hostel</tr>
+                                                    <tr>don simon</tr>
+                                                    <tr>23</tr>
+                                                    <tr>1000</tr>
+                                                    </tbody>
+                                                </table>
+
+                                                
+                                            
+                                         <?php
+                                        }
+
+                                    ?> 
+                                <div>
+                            <?php
+                             }elseif(isset($_GET['users']) == "users"){ ?>
+                                <div class="inventory-orders">
+                                    <?php
+
+                                        echo "working";
+                                    ?>
+                                <div>
+                            <?php }else{ ?>
                                 <div class="inventory-products">
                                     <?php
                                         $sql = 'SELECT * FROM products;';
@@ -77,10 +203,17 @@
                                                         echo '<p class="block"></p>';
                                                     }?>
                                         </div>
-                                        <div class="addCart">
-                                            <h3>Add to Cart</h3>
-                                            <img src="./assets/cart.png" class="cart-img" alt="cart image">
-                                        </div>
+                                        <form method="GET">
+                                            <input name="pid" value="<?php echo $products['productid']?>" hidden>
+                                            <input  name="pName" value="<?php echo $products['productName']?>" hidden>
+                                            <input  name="pPrice" value="<?php echo $products['productPrice']?>" hidden>
+                                            <input  name="quantity" value="<?php echo $products['stock']?>" hidden>
+                                            
+                                            <button class='addCart' name="addToCart">
+                                                <h3>Add to Cart</h3>
+                                                <img src="./assets/cart.png" class="cart-img" alt="cart image">
+                                            </button>
+                                        </form>
                                     </div>
                                 <?php
                                 }
@@ -93,29 +226,76 @@
                     <aside class="addedCartOverlay">
                         <div class="cartDisplay">
                             <h2>Your Cart</h2>
-                            <div class="cartProduct">
+                            <?php
+                            if(isset($_GET['addToCart']) == "addToCart"){
+                                $pid = $_GET['pid'];
+                                $pName = $_GET['pName'];
+                                $pPrice = $_GET['pPrice'];
+                                $pStock = $_GET['quantity'];
+                                $stock = 1;
+                                $total = 0;
+
+                                echo '
+                                <div class="cartProduct">
                                 <div class="cartPImg"><img src="./assets/cart.png" alt="product image"></div>
                                 
                                 <div class="cartPInfo">
-                                    <h4>product name</h4>
-                                    <h4>product price</h4>
+                                    <h4>'.$pName.'</h4>
+                                    <h4>'.$pPrice.'</h4>
                                     <button>remove</button>
                                 </div>
                                 <div class="cartPStock">
                                     <button><</button>
-                                    <h4>stock</h4>
+                                    <h4>'.$stock.'</h4>
                                     <button><</button>
-                                </div>
+                                </div>';
 
-                            </div>
-                            <div class="cartfooter">
-                                <div class="cartTotal">
-                                    <h3>Total: GH¢ </h3>
+                                
+                                echo '
                                 </div>
-                                <button class="cartBuy">
-                                    Make Order
-                                </button>   
-                            </div>
+                                <form method="POST" class="cartFooter">
+
+                                    <div class="cartTotal">
+                                        <h3>Total: GH¢'.$total = $pPrice*$stock.' </h3>
+                                    </div>
+
+                                    <input name="pName" value="'.$pName.'" hidden>
+                                    <input  name="pid" value="'.$pid.'" hidden>
+                                    <input  name="pPrice" value="'.$total.'" hidden>
+                                    <input  name="stock" value="'.$stock.'" hidden>
+                                    <input  name="quantity" value="'.$pStock.'" hidden>
+                                    <input  name="username" value="'.$_SESSION['fistName'].' '.$_SESSION['lastName'].'" hidden>
+                                    <input  name="username" value="'.$_SESSION['email'].'" hidden>
+                                    <input  name="username" value="'.$_SESSION['userid'].'" hidden>
+                                    <input  name="username" value="'.$_SESSION['contact'].'" hidden>
+                                    <input  name="username" value="'.$_SESSION['location'].'" hidden>
+
+
+                                    <div class="payment">
+                                        <h3>Payment Method</h3>
+                                        <h4>Mobile Money</h4>
+                                        <input type="radio" name="payment" value="momo">
+                                        <h4>Cash</h4>
+                                        <input type="radio" name="payment" value="cash">
+                                    </div>
+                                    <div class="delivery">
+                                        <h3>Delivery Options</h3>
+                                        <h4>Home Delivery</h4>
+                                        <input type="radio" name="delivery" value="delivery">
+                                        <h4>Pick up</h4>
+                                        <input type="radio" name="delivery" value="no delivery">
+                                    </div>
+                                    
+                                    <button name="buyProducts" class="cartBuy">
+                                        Make Order
+                                    </button>   
+                                </form>';
+
+    
+                            }else{
+                                echo '<p>no item in cart</p>';
+                            }
+                            ?>
                         </div>
                     </aside>
                 </section><?php
@@ -136,8 +316,8 @@
                     </div>
                     <div class="add-profile-form">
                         <form method="POST" entype="multipart/form-data">
-                            <input type="file" name="ppic" hidden>
-                            <button class="add-profile">add profile image</button>
+                            <input type="file" name="ppic">
+                            <!-- <button class="add-profile">add profile image</button> -->
                         </form>
                     </div>
                         <div class="user-info"><?php
@@ -149,17 +329,143 @@
                     </div>
                     </aside>
                     <section class="display-products">
-                        <div class="titles">
-                            <h1>Items in inventory</h1>
-                            <h1>Users</h1>
-                            <h1>Orders</h1>
-                        </div>
+                    <form class="util" method="GET">
+                            <button class="section-text title" name="items" value="inventory">Items in inventory</button>
+                            <button class="section-text" name="order" value="order">Orders</button>
+                            <button class="section-text" name="users" value="users">Users</button>
+                    </form>
                         <?php
-                        if(isset($_GET['searchProductsUsers'])){
-                            echo '<div class="inventory-products">';
-                                echo searchProductsAdmin($conn, $_POST['search'], $_POST['search']); 
-                            echo '</div>';
-                        }else{?>
+                        if(isset($_GET['searchProductsAdmin']) == "searchProducts"){?>
+                            <div class="inventory-products">
+                            <?php
+                                    $item = $_GET['search'];
+                                    
+                                    $sql = 'SELECT * FROM products WHERE productName = ? OR category = ?;';
+                                    $stmt = mysqli_stmt_init($conn);
+                                    if(!mysqli_stmt_prepare($stmt, $sql)){
+                                        header("Location: ../index.php?error=stmt-error");
+                                        exit();
+                                    }
+
+                                    mysqli_stmt_bind_param($stmt, "ss", $item, $item);
+                                    mysqli_stmt_execute($stmt);
+                                    $result = mysqli_stmt_get_result($stmt);
+                                    
+                                    
+                                        while($products=mysqli_fetch_assoc($result)){
+                                            ?>
+                                            
+                                            <div class="product-box" id="parent">
+                                    <div class="relative-box">
+                                    <div class="products-img"><?php
+                                        if($products['pPicStatus'] != 1){?>
+                                            <img src="./productProfile/general.png" class="product-img"><?php
+                                         }else {?>
+                                            <img src="./productProfile/<?php echo $products['productPic']?>" class="product-img"><?php
+                                        }?>
+                                        <div class="edit"> 
+                                            <form action="./includes/utilities.inc.php" method="POST" enctype="multipart/form-data">
+                                                <input name="pid" value="<?php echo $products['productid']?>" hidden>
+                                                <input id="product-pic-change<?php echo $products['productid']?>" type="file" name="ppic" hidden>
+                                                <!-- <button class="edit-btn" id="<?php echo $products['productid']?>">edit image</button>     -->
+                                                <!-- <button type="submit" class="edit-btn-save" id="save<?php echo $products['productid']?>" name="edit-product-pic">save image</button> -->
+                                            </form>
+                                            
+                                        </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="products-info"><?php
+                                    echo '<p>'.$products['productName'].'</p>';
+                                    echo '<p> Price: GH¢'.$products['productPrice'].'</p>';
+                                    echo '</div>';
+                    
+                                    echo '<div class="products-info-dates">';
+                                        if($products['pProduceDate'] !== 'Null'){
+                                            echo '<p>'.$products['pProduceDate'].'</p>';
+                                        }
+                                        if($products['pExpiryDate'] !== 'Null'){
+                                            echo '<p>'.$products['pExpiryDate'].'</p>';
+                                        }
+                                    echo '</div>';?>
+                                    <form>
+                                        <button>edit</button>
+                                        <button>delete</button>
+                                    </form>
+                                </div>
+                                        <?php
+                                        }
+
+                                    mysqli_stmt_close($stmt);
+                                    ?>
+
+
+                                    
+                            </div>
+                        <?php }elseif(isset($_GET['order']) == "order"){ ?>
+                                <div class="inventory-orders">
+                                    <?php
+                                        $sql = 'SELECT * FROM orders;';
+                                        $result = $conn->query($sql);
+                                        while($products = $result->fetch_assoc()){?>
+                                        
+                                            
+                                                <table>
+                                                    <thead>
+                                                        <tr>Custoner Name</tr>
+                                                        <tr>Contact</tr>
+                                                        <tr>Location</tr>
+                                                        <tr>Product</tr>
+                                                        <tr>Quantity</tr>
+                                                        <tr>Price</tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>Michael Essien</tr>
+                                                    <tr>0263436049</tr>
+                                                    <tr>hostel</tr>
+                                                    <tr>don simon</tr>
+                                                    <tr>23</tr>
+                                                    <tr>1000</tr>
+                                                    </tbody>
+                                                </table>
+                                            
+                                        <?php
+                                        }
+
+                                    ?>
+                                </div>                        
+                        <?php }elseif(isset($_GET['users']) == "users"){ ?>
+                                <div class="inventory-orders">
+                                    <?php
+                                        $sql = 'SELECT * FROM users;';
+                                        $result = $conn->query($sql);
+                                        while($products = $result->fetch_assoc()){
+                                        ?>
+                                            <table>
+                                                    <thead>
+                                                        <tr>Custoner Name</tr>
+                                                        <tr>Contact</tr>
+                                                        <tr>Location</tr>
+                                                        <tr>Product</tr>
+                                                        <tr>Quantity</tr>
+                                                        <tr>Price</tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                    <tr>Michael Essien</tr>
+                                                    <tr>0263436049</tr>
+                                                    <tr>hostel</tr>
+                                                    <tr>don simon</tr>
+                                                    <tr>23</tr>
+                                                    <tr>1000</tr>
+                                                    </tbody>
+                                                </table>
+
+                                        <?php
+                                        }                                        
+                                    ?>
+                                </div>
+                        <?php  }else{?>
                            <div class="inventory-products">
                            
                             <?php
@@ -179,11 +485,10 @@
                                         <div class="edit"> 
                                             <form action="./includes/utilities.inc.php" method="POST" enctype="multipart/form-data">
                                                 <input name="pid" value="<?php echo $products['productid']?>" hidden>
-                                                <input id="product-pic-change<?php echo $products['productid']?>" type="file" name="ppic" hidden>
-                                                
-                                                <button type="submit" class="edit-btn-save" id="save<?php echo $products['productid']?>" name="edit-product-pic">save image</button>
+                                                <input id="product-pic-change<?php echo $products['productid']?>" type="file" name="ppic" class="pImageUpload">
+                                                <!-- <button type="submit" class="edit-btn-save" id="save<?php echo $products['productid']?>" name="edit-product-pic">save image</button> -->
                                             </form>
-                                            <button class="edit-btn" id="edit<?php echo $products['productid']?>" onclick="changePic()">edit image</button>
+                                            
                                         </div>
                                         </div>
                                     </div>

@@ -47,3 +47,11 @@ ALTER TABLE products MODIFY pdayAdded timestamp default current_timestamp not nu
 ALTER TABLE users MODIFY userCreatedAt timestamp default current_timestamp not null;   
 
 ALTER TABLE products MODIFY productPrice int(11) not null; 
+
+ALTER TABLE `orders` ADD `orderDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `price`;
+
+ALTER TABLE `orders` ADD `delivery` VARCHAR(255) NOT NULL AFTER `orderDate`;
+
+ALTER TABLE `orders` ADD `isDelivered` VARCHAR(255) NOT NULL AFTER `delivery`;
+
+ALTER TABLE `orders` ADD `paymentMethod` VARCHAR(255) NOT NULL AFTER `delivery`;

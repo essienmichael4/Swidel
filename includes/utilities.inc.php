@@ -42,6 +42,36 @@
 
         header("Location: ../index.php?success=picAdded");
         exit();
+    } elseif(isset($_POST['buyProducts'])){
+        
+        include_once("./dbh.inc.php");
+        include_once("./functions.inc.php");
+
+        $pid = (int)$_POST['pid'];
+        $pName = $_POST['pName'];
+        $pPrice = $_POST['pPrice'];
+        $stock = (int)$_POST['stock'];
+        $pStock = (int)$_POST['pStock'];
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $uid = (int)$_POST['userid'];
+        $contact = $_POST['contact'];
+        $location = $_POST['location'];
+        $delivery = $_POST['delivery'];
+        $payment = $_POST['payment'];
+
+        $pStock = $pStock-$stock;
+
+        if(emptyField($delivery) || emptyField($payment)){
+            header("Location: ../index.php?error=orderUnsuccessful");
+            exit();
+        }else{
+            orderProducts($conn, $pid, $pName, $pPrice, $stock, $pStock, $uid, $username, $email, $contact, $location, $payment, $delivery);
+            header("Location: ../index.php?success=orderSuccessful");
+            exit();
+        }
+
+        
     }
 
     

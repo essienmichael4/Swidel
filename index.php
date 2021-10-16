@@ -22,14 +22,5 @@
     // include("./src/footer.php");
 ?>
 </body>
-<script>
-    let changePic = e =>{
-        let id = e.target.id; 
-        e.target.preventDefault();
-
-        alert(id);
-
-    }
-</script>
 <script src="./index.js"></script>
 </html>
